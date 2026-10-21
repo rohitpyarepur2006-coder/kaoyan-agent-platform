@@ -1,0 +1,15 @@
+.admin-question-layout > section { min-width: 0; }
+#question-admin-panel { overflow-wrap: anywhere; }
+#question-admin-panel fieldset { border: 0; padding: 0; min-width: 0; margin: 0; }
+#question-admin-panel textarea { margin-bottom: 12px; }
+#question-admin-panel pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+#question-admin-panel details { padding: 10px 0; border-bottom: 1px solid #dce3ed; }
+.admin-question-row { padding: 12px 0; border-bottom: 1px solid #dce3ed; }
+.admin-question-row p { margin: 0 0 8px; }
+.admin-question-row button { display: block; margin-top: 8px; }
+#qa-review-form { margin-top: 24px; }
+#qa-reviews p { white-space: pre-wrap; }
+@media (max-width: 700px) {
+  #question-admin-panel .section-head { flex-wrap: wrap; }
+  #question-admin-panel .pagination { flex-wrap: wrap; }
+}

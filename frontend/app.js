@@ -1,4 +1,5 @@
 import { request } from "./js/api.js";
+import { createQuestionAdmin } from "./js/question-review.js";
 "use strict";
 
 const $ = id => document.getElementById(id);
@@ -13,6 +14,7 @@ const modeNames = { chapter: "章节练习", random: "随机练习", wrong: "错
 
 function message(text = "") { $("message").textContent = text; }
 function api(path, options = {}) { return request(path, { ...options, token }); }
+const questionAdmin = createQuestionAdmin({ api, getUser: () => currentUser, getEpoch: () => epoch, onError: handleError, message });
 
 function setBusy(value) { busy = value; $("submit-task").disabled = value; $("example").disabled = value; $("progress").hidden = !value; }
 function resetResult() {
@@ -29,6 +31,7 @@ function showUser(user) {
 }
 function clearSession() {
   epoch++; selection++; historyVersion++; token = ""; sessionStorage.removeItem("kaoyan_token");
+  questionAdmin.reset();
   page = 0; pages = 0; practiceSession = null; practiceItem = null; setBusy(false); showUser(null); resetResult();
   $("history-items").replaceChildren(); $("session-list").replaceChildren(); $("wrong-items").replaceChildren();
   $("task-input").value = ""; $("task-subject").value = "";
@@ -272,7 +275,9 @@ function renderRoute() {
   $("records-panel").hidden = name !== "records";
   $("practice-panel").hidden = name !== "practice";
   $("wrong-panel").hidden = name !== "wrong";
-  $("feature-panel").hidden = !(name in features);
+  const manageQuestions = name === "admin" && currentUser.role === "admin";
+  $("feature-panel").hidden = manageQuestions || !(name in features);
+  if (manageQuestions) questionAdmin.show(); else questionAdmin.hide();
   for (const link of $("navigation").querySelectorAll("a")) {
     if (link.hash === `#${name}`) link.setAttribute("aria-current", "page"); else link.removeAttribute("aria-current");
   }

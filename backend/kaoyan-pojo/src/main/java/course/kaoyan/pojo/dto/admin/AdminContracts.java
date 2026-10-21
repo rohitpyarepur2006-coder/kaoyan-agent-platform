@@ -14,10 +14,6 @@ public final class AdminContracts {
             @NotBlank String collegeCode, @NotBlank String collegeName, @NotBlank String majorCode,
             @NotBlank String majorName, @NotNull DegreeType degreeType, @NotBlank String studyMode,
             @NotNull @Min(2000) @Max(2100) Integer examYear, @NotEmpty List<String> sourceChunkIds) {}
-    public record QuestionInput(@NotNull Subject subject, @NotEmpty List<String> knowledgePointIds,
-            @NotNull Difficulty difficulty, @NotBlank @Size(max=10000) String stem,
-            @NotEmpty Map<String,String> options, @NotBlank String correctOption,
-            @NotBlank String explanation, @NotEmpty List<String> sourceChunkIds) {}
     public record ReviewInput(@NotNull ReviewStatus status, @Size(max=2000) String comment) {}
 }
 

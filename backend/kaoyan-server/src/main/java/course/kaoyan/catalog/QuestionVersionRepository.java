@@ -9,4 +9,5 @@ import org.springframework.data.repository.Repository;
 public interface QuestionVersionRepository extends Repository<QuestionVersion, String> {
     Optional<QuestionVersion> findById(String id);
     List<QuestionVersion> findAll();
+    List<QuestionVersion> findByQuestionId(String questionId);
 }
